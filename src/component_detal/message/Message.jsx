@@ -15,7 +15,7 @@ export default function Message({ message, own, onClickDelete, userId, onClickDe
   // useEffect(() => {
   //   const getUser = async () => {
   //     try {
-  //       const res = await axios("http://localhost:8800/api/users/name?userId="+message.sender);  
+  //       const res = await axios("http://13.212.6.208:8800/api/users/name?userId="+message.sender);  
   //       setUser(res.data);
   //     } catch (err) {
   //       console.log(err); 
@@ -29,7 +29,7 @@ export default function Message({ message, own, onClickDelete, userId, onClickDe
   const handleDeleteMessage = async () => {
     try {
 
-      const res = await axios.put("http://localhost:8800/api/messages/recall", { "id": message._id });
+      const res = await axios.put("http://13.212.6.208:8800/api/messages/recall", { "id": message._id });
       console.log(res.data);
       message.text = "tin nhắn đã được thu hồi"
       message.reCall=true
@@ -47,7 +47,7 @@ export default function Message({ message, own, onClickDelete, userId, onClickDe
         delUser: userId
       };
 
-      const res = await axios.put("http://localhost:8800/api/messages/del", data);
+      const res = await axios.put("http://13.212.6.208:8800/api/messages/del", data);
       console.log(res.data);
       onClickDeleteMgsUser(message._id);
     } catch (err) {
@@ -62,7 +62,7 @@ export default function Message({ message, own, onClickDelete, userId, onClickDe
         delUser: userId
       };
 
-      await axios.put("http://localhost:8800/api/messages/del", data);
+      await axios.put("http://13.212.6.208:8800/api/messages/del", data);
       message.delUser = "OneNexius209"
       onClickDeleteMgsFri("OneNexius209");
       console.log(message._id)

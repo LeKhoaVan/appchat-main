@@ -18,7 +18,7 @@ export default function Conversation({ conversation, currentUser, timeM, myMes,r
     const friendId = conversation.members.find((m) => m !== currentUser);
     const getUser = async () => {
       try {
-        const res = await axios("http://localhost:8800/api/users?userId="+friendId);  
+        const res = await axios("http://13.212.6.208:8800/api/users?userId="+friendId);  
         setUser(res.data);
        
       } catch (err) {
@@ -31,9 +31,9 @@ export default function Conversation({ conversation, currentUser, timeM, myMes,r
 
   useEffect(() => {
     const getNewMes = async () => {
-      //http://localhost:8800/api/messages/lastmess/63681efaf338cdd7632c04f1
+      //http://13.212.6.208:8800/api/messages/lastmess/63681efaf338cdd7632c04f1
       try {
-        const res = await axios("http://localhost:8800/api/messages/lastmess/"+conversation._id);
+        const res = await axios("http://13.212.6.208:8800/api/messages/lastmess/"+conversation._id);
         console.log(res.data.sender)
         // const newM = res.data;
         
@@ -62,7 +62,7 @@ export default function Conversation({ conversation, currentUser, timeM, myMes,r
   useEffect(() => {
     const getUserName = async () => {
       try {
-        const res = await axios("http://localhost:8800/api/users?userId="+newMes.sender);  
+        const res = await axios("http://13.212.6.208:8800/api/users?userId="+newMes.sender);  
         setUserName(res.data.username);
         
       } catch (err) {
