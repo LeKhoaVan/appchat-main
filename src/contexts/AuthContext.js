@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect, useRef } from 'react'
 import { authReducer } from '../reducers/authReducer'
-import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from './constants'
+// import { apiUrl, 'appchatnhom9' } from './constants'
 import axios from 'axios'
 import setAuthToken from '../utils/setAuthToken'
 
@@ -17,12 +17,12 @@ const AuthContextProvider = ({ children }) => {
 
     //authenticate user
     const loadUser = async () => {
-		if (localStorage[LOCAL_STORAGE_TOKEN_NAME]) {
-			setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME])
+		if (localStorage['appchatnhom9']) {
+			setAuthToken(localStorage['appchatnhom9'])
 		}
 
 		try {
-			const response = await axios.get(`${apiUrl}`)
+			const response = await axios.get('http://13.212.6.208:8800/api/auth')
 			if (response.data.success) {
 				dispatch({
 					type: 'SET_AUTH',
@@ -30,7 +30,7 @@ const AuthContextProvider = ({ children }) => {
 				})
 			}
 		} catch (error) {
-			localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
+			localStorage.removeItem('appchatnhom9')
 			setAuthToken(null)
 			dispatch({
 				type: 'SET_AUTH',
@@ -47,11 +47,11 @@ const AuthContextProvider = ({ children }) => {
 	//register
 	const registerUser = async userForm => {
 		try {
-			const response = await axios.post(`${apiUrl}/register`, userForm)
+			const response = await axios.post('http://13.212.6.208:8800/api/auth/register', userForm)
 
 			// if (response.data.success)
 			// 	localStorage.setItem(
-			// 		LOCAL_STORAGE_TOKEN_NAME,
+			// 		'appchatnhom9',
 			// 		response.data.accessToken
 			// 	)
 
@@ -66,11 +66,11 @@ const AuthContextProvider = ({ children }) => {
 
 	const checkOTP = async userForm =>{
 		try {
-			const response = await axios.put(`${apiUrl}/verifyOtp`, userForm)
+			const response = await axios.put('http://13.212.6.208:8800/api/auth/verifyOtp', userForm)
 
 			if (response.data.success)
 				localStorage.setItem(
-					LOCAL_STORAGE_TOKEN_NAME,
+					'appchatnhom9',
 					response.data.accessToken
 				)
 
@@ -86,10 +86,10 @@ const AuthContextProvider = ({ children }) => {
 	 // Login
 	const loginUser = async userForm => {
 		try {
-			const response = await axios.post(`${apiUrl}/login`, userForm)
+			const response = await axios.post('http://13.212.6.208:8800/api/auth/login', userForm)
 			if (response.data.success)
 				localStorage.setItem(
-					LOCAL_STORAGE_TOKEN_NAME,
+					'appchatnhom9',
 					response.data.accessToken
 				)
 
@@ -104,7 +104,7 @@ const AuthContextProvider = ({ children }) => {
 
 
 	const logoutUser = () => {
-		localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
+		localStorage.removeItem('appchatnhom9')
 		dispatch({
 			type: 'SET_AUTH',
 			payload: { isAuthenticated: false, user: null }
@@ -113,7 +113,7 @@ const AuthContextProvider = ({ children }) => {
 		//changePassword
 		const changePassUser = async userForm => {
 			try {
-				const response = await axios.put(`${apiUrl}/changePassword`, userForm)
+				const response = await axios.put('http://13.212.6.208:8800/api/auth/changePassword', userForm)
 				return response.data
 			} catch (error) {
 				if (error.response.data) return error.response.data
